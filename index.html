@@ -4,70 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Каталог копірайтерів</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        background-color: #f9f0e3;
-      }
-      .container {
-        max-width: 600px;
-        margin: auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .users-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .user-item {
-        flex: 1 1 45%;
-        background-color: #f0e68c;
-        padding: 10px;
-        border-radius: 5px;
-        text-align: center;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      .user-item:hover {
-        background-color: #d2b48c;
-      }
-      .user-info {
-        margin-top: 20px;
-        display: none;
-        background-color: #fafafa;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-      .user-info h3 {
-        margin-top: 0;
-      }
-      .show-posts {
-        margin-top: 10px;
-        padding: 10px;
-        background-color: #6a5acd;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        display: none;
-      }
-      .posts-list {
-        margin-top: 20px;
-        display: none;
-      }
-      .post-item {
-        margin-bottom: 10px;
-        padding: 10px;
-        background-color: #eee;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
@@ -83,63 +20,6 @@
       <div id="postsList" class="posts-list"></div>
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const usersList = document.getElementById("usersList");
-        const userInfo = document.getElementById("userInfo");
-        const userName = document.getElementById("userName");
-        const userUsername = document.getElementById("userUsername");
-        const userAddress = document.getElementById("userAddress");
-        const userEmail = document.getElementById("userEmail");
-        const showPostsButton = document.getElementById("showPosts");
-        const postsList = document.getElementById("postsList");
-
-        let currentUserId = null;
-
-        fetch("https://jsonplaceholder.typicode.com/users")
-          .then((response) => response.json())
-          .then((users) => {
-            users.forEach((user) => {
-              const userItem = document.createElement("div");
-              userItem.className = "user-item";
-              userItem.textContent = user.name;
-              userItem.addEventListener("click", () => {
-                showUserInfo(user);
-              });
-              usersList.appendChild(userItem);
-            });
-          });
-
-        function showUserInfo(user) {
-          currentUserId = user.id;
-          userName.textContent = user.name;
-          userUsername.textContent = user.username;
-          userAddress.textContent = `${user.address.street}, ${user.address.suite}, ${user.address.city}`;
-          userEmail.textContent = user.email;
-          userInfo.style.display = "block";
-          showPostsButton.style.display = "block";
-          postsList.style.display = "none";
-        }
-
-        showPostsButton.addEventListener("click", function () {
-          if (currentUserId) {
-            fetch(
-              `https://jsonplaceholder.typicode.com/posts?userId=${currentUserId}`
-            )
-              .then((response) => response.json())
-              .then((posts) => {
-                postsList.innerHTML = "";
-                posts.forEach((post) => {
-                  const postItem = document.createElement("div");
-                  postItem.className = "post-item";
-                  postItem.innerHTML = `<h4>${post.title}</h4><p>${post.body}</p>`;
-                  postsList.appendChild(postItem);
-                });
-                postsList.style.display = "block";
-              });
-          }
-        });
-      });
-    </script>
+    <script src="scripts.js"></script>
   </body>
 </html>
